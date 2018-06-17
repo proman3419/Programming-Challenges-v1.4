@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\bin\Debug\00 Name generator.exe.config
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\bin\Debug\00 Name generator.exe
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\bin\Debug\00 Name generator.pdb
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.exe
+C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.pdb

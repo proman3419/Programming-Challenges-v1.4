@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.exe.config
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.exe
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.pdb
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.exe
+C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.pdb

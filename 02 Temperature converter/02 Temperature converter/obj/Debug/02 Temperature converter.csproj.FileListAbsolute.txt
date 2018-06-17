@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\bin\Debug\02 Temperature converter.exe.config
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\bin\Debug\02 Temperature converter.exe
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\bin\Debug\02 Temperature converter.pdb
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\obj\Debug\02 Temperature converter.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\obj\Debug\02 Temperature converter.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\obj\Debug\02 Temperature converter.exe
+C:\Users\Przemek\Desktop\Challenge\02 Temperature converter\02 Temperature converter\obj\Debug\02 Temperature converter.pdb

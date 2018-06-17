@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\bin\Debug\05 FizzBuzz.exe.config
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\bin\Debug\05 FizzBuzz.exe
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\bin\Debug\05 FizzBuzz.pdb
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\obj\Debug\05 FizzBuzz.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\obj\Debug\05 FizzBuzz.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\obj\Debug\05 FizzBuzz.exe
+C:\Users\Przemek\Desktop\Challenge\05 FizzBuzz\05 FizzBuzz\obj\Debug\05 FizzBuzz.pdb

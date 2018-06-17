@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\bin\Debug\03 Calculate age in seconds.exe.config
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\bin\Debug\03 Calculate age in seconds.exe
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\bin\Debug\03 Calculate age in seconds.pdb
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\obj\Debug\03 Calculate age in seconds.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\obj\Debug\03 Calculate age in seconds.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\obj\Debug\03 Calculate age in seconds.exe
+C:\Users\Przemek\Desktop\Challenge\03 Calculate age in seconds\03 Calculate age in seconds\obj\Debug\03 Calculate age in seconds.pdb
