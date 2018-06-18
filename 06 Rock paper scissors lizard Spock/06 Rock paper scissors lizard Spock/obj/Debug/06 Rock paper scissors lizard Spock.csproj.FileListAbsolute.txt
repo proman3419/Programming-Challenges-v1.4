@@ -1,0 +1,7 @@
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\bin\Debug\06 Rock paper scissors lizard Spock.exe.config
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\bin\Debug\06 Rock paper scissors lizard Spock.exe
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\bin\Debug\06 Rock paper scissors lizard Spock.pdb
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\obj\Debug\06 Rock paper scissors lizard Spock.csprojResolveAssemblyReference.cache
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\obj\Debug\06 Rock paper scissors lizard Spock.csproj.CoreCompileInputs.cache
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\obj\Debug\06 Rock paper scissors lizard Spock.exe
+C:\Users\Przemek\Desktop\Challenge\06 Rock paper scissors lizard Spock\06 Rock paper scissors lizard Spock\obj\Debug\06 Rock paper scissors lizard Spock.pdb
