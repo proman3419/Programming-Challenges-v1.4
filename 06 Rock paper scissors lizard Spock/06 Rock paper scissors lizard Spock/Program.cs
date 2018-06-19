@@ -112,6 +112,8 @@ namespace _06_Rock_paper_scissors_lizard_Spock
                         playAgain = false;
                         break;
                     }
+                    else
+                        Console.WriteLine("Wrong input, answer with either y or n");
                 }
             } while (playAgain);
         }
