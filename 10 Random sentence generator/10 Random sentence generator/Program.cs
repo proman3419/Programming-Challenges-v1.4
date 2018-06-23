@@ -56,6 +56,7 @@ namespace _10_Random_sentence_generator
         }
     }
 
+    #region Persons
     class I : Initializer, IPerson
     {
         public string[] Name { get; set; }
@@ -121,6 +122,7 @@ namespace _10_Random_sentence_generator
             Words = InitializeWords();
         }
     }
+    #endregion
 
     class SentenceGenerator
     {
@@ -149,31 +151,33 @@ namespace _10_Random_sentence_generator
             Random random = new Random();
             int tense = random.Next(0, 4);
             int word = random.Next(0, Initializer.WordsHighestId);
+            int verb, name;
+            string temp;
             switch (tense)
             {
                 case 0:
-                    int verb = random.Next(0, Initializer.ContinousHighestId);
-                    int name = random.Next(0, person.NameHighestId);
-                    string temp = person.Name[name] + " " + person.Be[0] + " " + person.Continous[verb] + " " + person.Words[word];
+                    verb = random.Next(0, Initializer.ContinousHighestId);
+                    name = random.Next(0, person.NameHighestId);
+                    temp = person.Name[name] + " " + person.Be[0] + " " + person.Continous[verb] + " " + person.Words[word];
                     Console.WriteLine(temp);
                     break;
                 case 1:
-                    int verbNd = random.Next(0, Initializer.ContinousHighestId);
-                    int nameNd = random.Next(0, person.NameHighestId);
-                    string tempNd = person.Name[nameNd] + " " + person.Be[1] + " " + person.Continous[verbNd] + " " + person.Words[word];
-                    Console.WriteLine(tempNd);
+                    verb = random.Next(0, Initializer.ContinousHighestId);
+                    name = random.Next(0, person.NameHighestId);
+                    temp = person.Name[name] + " " + person.Be[1] + " " + person.Continous[verb] + " " + person.Words[word];
+                    Console.WriteLine(temp);
                     break;
                 case 2:
-                    int verbRd = random.Next(0, Initializer.PastSimpleHighestId);
-                    int nameRd = random.Next(0, person.NameHighestId);
-                    string tempRd = person.Name[nameRd] + " " + person.PastSimple[verbRd] + " " + person.Words[word];
-                    Console.WriteLine(tempRd);
+                    verb = random.Next(0, Initializer.PastSimpleHighestId);
+                    name = random.Next(0, person.NameHighestId);
+                    temp = person.Name[name] + " " + person.PastSimple[verb] + " " + person.Words[word];
+                    Console.WriteLine(temp);
                     break;
                 case 3:
-                    int verbTh = random.Next(0, Initializer.PresentSimpleHighestId);
-                    int nameTh = random.Next(0, person.NameHighestId);
-                    string tempTh = person.Name[nameTh] + " " + person.PresentSimple[verbTh] + " " + person.Words[word];
-                    Console.WriteLine(tempTh);
+                    verb = random.Next(0, Initializer.PresentSimpleHighestId);
+                    name = random.Next(0, person.NameHighestId);
+                    temp = person.Name[name] + " " + person.PresentSimple[verb] + " " + person.Words[word];
+                    Console.WriteLine(temp);
                     break;
                 default:
                     Console.WriteLine("The program is broken, contact the support");
