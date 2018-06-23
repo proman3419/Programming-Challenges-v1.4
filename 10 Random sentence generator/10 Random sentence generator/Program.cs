@@ -16,7 +16,7 @@ namespace _10_Random_sentence_generator
         string[] Words { get; set; }
     }
 
-    class Word
+    class Initializer
     {
         public static int PastSimpleHighestId { get; set; }
         public static int PresentSimpleHighestId { get; set; }
@@ -56,7 +56,7 @@ namespace _10_Random_sentence_generator
         }
     }
 
-    class I : Word, IPerson
+    class I : Initializer, IPerson
     {
         public string[] Name { get; set; }
         public int NameHighestId { get; set; }
@@ -78,7 +78,7 @@ namespace _10_Random_sentence_generator
         }
     }
 
-    class HeSheIt : Word, IPerson
+    class HeSheIt : Initializer, IPerson
     {
         public string[] Name { get; set; }
         public int NameHighestId { get; set; }
@@ -100,7 +100,7 @@ namespace _10_Random_sentence_generator
         }
     }
 
-    class WeTheyYou : Word, IPerson
+    class WeTheyYou : Initializer, IPerson
     {
         public string[] Name { get; set; }
         public int NameHighestId { get; set; }
@@ -148,29 +148,29 @@ namespace _10_Random_sentence_generator
         {  
             Random random = new Random();
             int tense = random.Next(0, 4);
-            int word = random.Next(0, Word.WordsHighestId);
+            int word = random.Next(0, Initializer.WordsHighestId);
             switch (tense)
             {
                 case 0:
-                    int verb = random.Next(0, Word.ContinousHighestId);
+                    int verb = random.Next(0, Initializer.ContinousHighestId);
                     int name = random.Next(0, person.NameHighestId);
                     string temp = person.Name[name] + " " + person.Be[0] + " " + person.Continous[verb] + " " + person.Words[word];
                     Console.WriteLine(temp);
                     break;
                 case 1:
-                    int verbNd = random.Next(0, Word.ContinousHighestId);
+                    int verbNd = random.Next(0, Initializer.ContinousHighestId);
                     int nameNd = random.Next(0, person.NameHighestId);
                     string tempNd = person.Name[nameNd] + " " + person.Be[1] + " " + person.Continous[verbNd] + " " + person.Words[word];
                     Console.WriteLine(tempNd);
                     break;
                 case 2:
-                    int verbRd = random.Next(0, Word.PastSimpleHighestId);
+                    int verbRd = random.Next(0, Initializer.PastSimpleHighestId);
                     int nameRd = random.Next(0, person.NameHighestId);
                     string tempRd = person.Name[nameRd] + " " + person.PastSimple[verbRd] + " " + person.Words[word];
                     Console.WriteLine(tempRd);
                     break;
                 case 3:
-                    int verbTh = random.Next(0, Word.PresentSimpleHighestId);
+                    int verbTh = random.Next(0, Initializer.PresentSimpleHighestId);
                     int nameTh = random.Next(0, person.NameHighestId);
                     string tempTh = person.Name[nameTh] + " " + person.PresentSimple[verbTh] + " " + person.Words[word];
                     Console.WriteLine(tempTh);
