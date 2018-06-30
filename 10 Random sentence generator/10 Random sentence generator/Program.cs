@@ -156,7 +156,6 @@ namespace _10_Random_sentence_generator
                     verb = random.Next(0, wordBase.PastSimpleHighestId);
                     name = random.Next(0, person.NameHighestId);
                     temp = person.Name[name] + " " + wordBase.PastSimple[verb] + " " + wordBase.Words[word];
-                    Console.WriteLine(temp);
                     break;
                 case 1: //Present Simple
                     verb = random.Next(0, wordBase.PresentSimpleHighestId);
@@ -165,24 +164,22 @@ namespace _10_Random_sentence_generator
                         temp = person.Name[name] + " " + wordBase.PresentSimpleS[verb] + " " + wordBase.Words[word];
                     else
                         temp = person.Name[name] + " " + wordBase.PresentSimple[verb] + " " + wordBase.Words[word];
-                    Console.WriteLine(temp);
                     break;
                 case 2: //Past Continous
                     verb = random.Next(0, wordBase.ContinousHighestId);
                     name = random.Next(0, person.NameHighestId);
                     temp = person.Name[name] + " " + person.Be[0] + " " + wordBase.Continous[verb] + " " + wordBase.Words[word];
-                    Console.WriteLine(temp);
                     break;
                 case 3: //Present Continous
                     verb = random.Next(0, wordBase.ContinousHighestId);
                     name = random.Next(0, person.NameHighestId);
                     temp = person.Name[name] + " " + person.Be[1] + " " + wordBase.Continous[verb] + " " + wordBase.Words[word];
-                    Console.WriteLine(temp);
                     break;
                 default:
-                    Console.WriteLine("The program is broken, contact the support");
+                    temp = "The program is broken, contact the support";
                     break;
             }
+            Console.WriteLine(temp);
         }
     }
 
