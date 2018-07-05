@@ -1,0 +1,59 @@
+﻿<Window x:Class="_20_Minesweeper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_20_Minesweeper"
+        mc:Ignorable="d"
+        Title="Minesweeper" Height="560" Width="500" FontSize="20" ResizeMode="NoResize">
+
+    <Grid>
+        <!--#region Row definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="1.2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--#endregion -->
+
+        <!--#region Menu (1st row)-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Name="NewGame" Content="New game" Click="NewGame_Click"></Button>
+            <Button Grid.Column="3" Name="Difficulty" Content="Easy" Click="Difficulty_Click"></Button>
+        </Grid>
+        <!--#endregion -->
+        
+        <!--#region Board (2nd row)-->
+        <WrapPanel Grid.Row="2" Name="Board" Background="AliceBlue"></WrapPanel>
+        <!--#endregion-->
+        
+        <!--#region Display game info (3rd row)-->
+        <Grid Grid.Row="3" Background="Azure">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1" Name="Time" Text="Time"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="3" Name="Mines" Text="Mines" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+    
+
+</Window>
