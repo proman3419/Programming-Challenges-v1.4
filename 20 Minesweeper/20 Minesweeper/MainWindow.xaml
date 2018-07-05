@@ -22,14 +22,17 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition Width="2.4*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2.4*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="1" Name="NewGame" Content="New game" Click="NewGame_Click"></Button>
-            <Button Grid.Column="3" Name="Difficulty" Content="Easy" Click="Difficulty_Click"></Button>
+            <TextBlock Grid.Column="3" Name="GameResult"></TextBlock>
+            <Button Grid.Column="5" Name="Difficulty" Content="Easy" Click="Difficulty_Click"></Button>
         </Grid>
         <!--#endregion -->
         
