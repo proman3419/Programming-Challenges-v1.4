@@ -19,7 +19,7 @@
         <!--#endregion -->
 
         <!--#region Menu (1st row)-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="Azure">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="2.4*"></ColumnDefinition>
@@ -30,14 +30,14 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" Name="NewGame" Content="New game" Click="NewGame_Click"></Button>
-            <TextBlock Grid.Column="3" Name="GameResult"></TextBlock>
-            <Button Grid.Column="5" Name="Difficulty" Content="Easy" Click="Difficulty_Click"></Button>
+            <Button Grid.Column="1" Name="NewGame" Content="New game" Focusable="False" Click="NewGame_Click"></Button>
+            <TextBlock Grid.Column="3" Name="GameResult" Background="Azure"></TextBlock>
+            <Button Grid.Column="5" Name="Difficulty" Content="Easy" Focusable="False" Click="Difficulty_Click"></Button>
         </Grid>
         <!--#endregion -->
         
         <!--#region Board (2nd row)-->
-        <WrapPanel Grid.Row="2" Name="Board" Background="AliceBlue"></WrapPanel>
+        <WrapPanel Grid.Row="2" Name="Board"></WrapPanel>
         <!--#endregion-->
         
         <!--#region Display game info (3rd row)-->
@@ -51,9 +51,8 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="1" Name="Time" Text="Time"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Grid.Column="3" Name="Mines" Text="Mines" 
-                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>            
+            <TextBlock Grid.Column="3" Name="MinesStatus" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </Grid>
         <!--#endregion-->
     </Grid>

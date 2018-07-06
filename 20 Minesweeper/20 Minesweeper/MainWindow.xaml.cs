@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace _20_Minesweeper
 {
-    class Field : Button
+    class Field : TextBox
     {
         public bool IsMine { get; set; }
         public bool IsRevealed { get; set; }
@@ -33,7 +34,7 @@ namespace _20_Minesweeper
             HiddenContent = String.Empty;
         }
 
-        public bool OnClick(Button clickedField, bool recursiveClick)
+        public bool OnClick(TextBox clickedField, bool recursiveClick)
         {
             if (!IsMine || !recursiveClick)
             {
@@ -85,10 +86,19 @@ namespace _20_Minesweeper
             }
         }
 
+        public void MarkField()
+        {
+            if (!IsRevealed)
+            {
+                IsMarked = true;
+                this.Text = "☺";
+            }
+        }
+
         public void RevealField(Field field)
         {
             field.IsRevealed = true;
-            field.Content = field.HiddenContent;
+            field.Text = field.HiddenContent;
             if (field.IsMine)
                 field.Background = Brushes.Red;
             else
@@ -100,20 +110,24 @@ namespace _20_Minesweeper
     {
         WrapPanel Board { get; set; }
         TextBlock GameResult { get; set; }
+        TextBlock MinesStatus { get; set; }
         Field[] Fields { get; set; }
         int[] MinesPositions { get; set; }
         int MinesAmount { get; set; }
+        int MarkedFields { get; set; }
         int Difficulty { get; set; }
         int FieldSize { get; set; }
         int FieldsAmount { get; set; }
         int FieldsInARow { get; set; }
         bool FirstMove { get; set; }
+        int FontSize { get; set; }
 
-        public Game(WrapPanel board, TextBlock gameResult)
+        public Game(WrapPanel board, TextBlock gameResult, TextBlock minesStatus)
         {
             Difficulty = 0;
             Board = board;
             GameResult = gameResult;
+            MinesStatus = minesStatus;
             GameResult.VerticalAlignment = VerticalAlignment.Center;
             GameResult.HorizontalAlignment = HorizontalAlignment.Center;
             GameResult.Padding = new Thickness(10, 10, 10, 10);
@@ -143,10 +157,12 @@ namespace _20_Minesweeper
         {
             FirstMove = true;
             GameResult.Text = "";
-            GameResult.Background = Brushes.White;
+            GameResult.Background = Brushes.Azure;
             CalculateVariables();
             Board.Children.Clear();
             CreateBoard();
+            MarkedFields = 0;
+            DisplayMinesStatus();
         }
 
         void GameOver()
@@ -165,6 +181,11 @@ namespace _20_Minesweeper
             GameResult.Text = "You win";
             GameResult.Background = Brushes.LightGreen;
         }
+
+        void DisplayMinesStatus()
+        {
+            MinesStatus.Text = MarkedFields + "/" + MinesAmount;
+        }
         #endregion
 
         #region Create board
@@ -175,18 +196,22 @@ namespace _20_Minesweeper
                 case 0:
                     FieldsAmount = 36;
                     MinesAmount = 10;
+                    FontSize = 34;
                     break;
                 case 1:
                     FieldsAmount = 100;
                     MinesAmount = 20;
+                    FontSize = 22;
                     break;
                 case 2:
-                    FieldsAmount = 144;
+                    FieldsAmount = 196;
                     MinesAmount = 30;
+                    FontSize = 12;
                     break;
             }
             FieldsInARow = (int)Math.Sqrt(FieldsAmount);
             FieldSize = (int)(Board.Height / FieldsInARow);
+            DisplayMinesStatus();
         }
 
         public void CreateBoard()
@@ -200,14 +225,20 @@ namespace _20_Minesweeper
                 Fields[i].Height = FieldSize;
                 Fields[i].Width = FieldSize;
                 Fields[i].Tag = i;
-                Fields[i].VerticalAlignment = VerticalAlignment.Center;
-                Fields[i].HorizontalAlignment = HorizontalAlignment.Center;
-                Fields[i].FontSize = 18;
-                Fields[i].Click += new RoutedEventHandler(Field_Click);
+                Fields[i].TextAlignment = TextAlignment.Center;
+                Fields[i].FontSize = FontSize;
+                if(Difficulty == 2)
+                    Fields[i].FontWeight = FontWeights.Bold;
+                Fields[i].IsReadOnly = true;
+                Fields[i].Cursor = Cursors.Arrow;
+                Fields[i].SelectionBrush = Brushes.Transparent;
+                Fields[i].Focusable = false;
+                Fields[i].PreviewMouseLeftButtonUp += new MouseButtonEventHandler(FieldReveal_Click);
+                Fields[i].PreviewMouseRightButtonUp += new MouseButtonEventHandler(FieldMark_Click);
                 foreach (var id in MinesPositions)
                     if (i == id)
                     {
-                        Fields[i].HiddenContent = "M";
+                        Fields[i].HiddenContent = "☻";
                         Fields[i].IsMine = true;
                     }
                 Board.Children.Add(Fields[i]);
@@ -265,10 +296,10 @@ namespace _20_Minesweeper
         }
         #endregion
 
-        #region Field click 
-        void Field_Click(object sender, RoutedEventArgs e)
+        #region Field clicks 
+        void FieldReveal_Click(object sender, MouseEventArgs e)
         {
-            int clickedFieldId = int.Parse(((Button)sender).Tag.ToString());
+            int clickedFieldId = int.Parse(((TextBox)sender).Tag.ToString());
             if (Fields[clickedFieldId].IsMine)
             {
                 Fields[clickedFieldId].RevealField(Fields[clickedFieldId]);
@@ -279,7 +310,7 @@ namespace _20_Minesweeper
             List<int> revealedFields = new List<int>();
 
 
-            if (Fields[clickedFieldId].OnClick((Button)sender, false))
+            if (Fields[clickedFieldId].OnClick((TextBox)sender, false))
                 revealedFields.Add(CheckNeighbours(clickedFieldId, revealedFields));
             if (FirstMove)
             {
@@ -323,6 +354,16 @@ namespace _20_Minesweeper
             catch { }
             return i;
         }
+
+        void FieldMark_Click(object sender, MouseEventArgs e)
+        {
+            if (!((Field)sender).IsMarked)
+            {
+                ((Field)sender).MarkField();
+                MarkedFields++;
+                DisplayMinesStatus();
+            }
+        }
         #endregion
     }
 
@@ -336,7 +377,7 @@ namespace _20_Minesweeper
             Board.Width = 350;
             Board.Height = Board.Width;
 
-            game = new Game(Board, GameResult);
+            game = new Game(Board, GameResult, MinesStatus);
         }
 
         #region Buttons
