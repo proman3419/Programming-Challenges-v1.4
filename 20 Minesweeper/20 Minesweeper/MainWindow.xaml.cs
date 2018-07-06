@@ -299,7 +299,7 @@ namespace _20_Minesweeper
 
                     if (!((FieldsAmount - FieldsInARow) < i && i < (FieldsAmount - 1))) // Without the last row
                     {
-                        if (i != 0 && i != FieldsAmount - FieldsInARow) // Without the upper-left corner and the bottom-down corner
+                        if (i % FieldsInARow != 0 && i != FieldsAmount - FieldsInARow) // Without the left column and the bottom-down corner
                             try { Fields[i + FieldsInARow - 1].MinesNearby++; } catch { }
                         try { Fields[i + FieldsInARow].MinesNearby++; } catch { }
                         if (i != FieldsAmount - 1 && i % FieldsInARow != FieldsInARow - 1) // Without the bottom-left corner and the last column
