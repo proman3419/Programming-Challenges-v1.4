@@ -55,7 +55,5 @@
             <TextBlock Grid.Column="3" Name="MinesStatus" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </Grid>
         <!--#endregion-->
-    </Grid>
-    
-
+    </Grid>        
 </Window>

@@ -98,6 +98,28 @@ namespace _20_Minesweeper
         public void RevealField(Field field)
         {
             field.IsRevealed = true;
+            if (!IsMine)
+            {
+                if (field.MinesNearby == 1)
+                    field.Foreground = Brushes.Blue;
+                if (field.MinesNearby == 2)
+                    field.Foreground = Brushes.Green;
+                if (field.MinesNearby == 3)
+                    field.Foreground = Brushes.Red;
+                if (field.MinesNearby == 4)
+                    field.Foreground = Brushes.DarkBlue;
+                if (field.MinesNearby == 5)
+                    field.Foreground = Brushes.DarkRed;
+                if (field.MinesNearby == 6)
+                    field.Foreground = Brushes.Turquoise;
+                if (field.MinesNearby == 7)
+                    field.Foreground = Brushes.Black;
+                if (field.MinesNearby == 8)
+                    field.Foreground = Brushes.Gray;
+                if (field.MinesNearby == 9)
+                    field.Foreground = Brushes.Orange;
+            }
+
             field.Text = field.HiddenContent;
             if (field.IsMine)
                 field.Background = Brushes.Red;
