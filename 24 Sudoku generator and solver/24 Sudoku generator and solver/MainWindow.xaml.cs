@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,14 @@ namespace _24_Sudoku_generator_and_solver
         public int Row { get; set; }
         public int Column { get; set; }
         public int Value { get; set; }
+        public List<int> ForbiddenValues { get; set; }
 
         public Field(int subGrid, int row, int column)
         {
             SubGrid = subGrid;
             Row = row;
             Column = column;
+            ForbiddenValues = new List<int>();
         }
     }
 
@@ -38,6 +41,7 @@ namespace _24_Sudoku_generator_and_solver
         List<int>[] SubGridsValues { get; set; }
         List<int>[] RowsValues { get; set; }
         List<int>[] ColumnsValues { get; set; }
+        List<Field> History { get; set; }
 
         public ProgramManager(Grid board)
         {
@@ -50,6 +54,7 @@ namespace _24_Sudoku_generator_and_solver
             InitializeAnArrayOfLists(RowsValues);
             ColumnsValues = new List<int>[9];
             InitializeAnArrayOfLists(ColumnsValues);
+            History = new List<Field>();
             CreateBoard();
         }
 
@@ -59,6 +64,7 @@ namespace _24_Sudoku_generator_and_solver
                 arrayOfLists[i] = new List<int>();
         }
 
+        #region Create board
         public void CreateBoard()
         {
             int currentId = 0;
@@ -79,7 +85,7 @@ namespace _24_Sudoku_generator_and_solver
                             Fields[currentId].TextAlignment = TextAlignment.Center;
                             Fields[currentId].Background = GetColor(i);
                             Fields[currentId].Margin = new Thickness(1);
-
+                            
                             child.Children.Add(Fields[currentId]);
                             currentId++;
                         }
@@ -174,32 +180,81 @@ namespace _24_Sudoku_generator_and_solver
             }
             return 0;
         }
+        #endregion
 
         #region Create sudoku
         public void CreateSudoku()
         {
-            Random random = new Random();
-            int currentId = 0, value;
-            while (currentId < 80)
+            int currentId = 0, value = 0;
+            while (currentId < 20)
             {
-                while (true)
-                {
-                    value = random.Next(1, 10);
-                    if (!SubGridConflict(currentId, value) && !RowConflict(currentId, value) && !ColumnConflict(currentId, value))
-                    {
-                        SubGridsValues[Fields[currentId].SubGrid].Add(value);
-                        RowsValues[Fields[currentId].Row].Add(value);
-                        ColumnsValues[Fields[currentId].Column].Add(value);
-
-                        Fields[currentId].Value = value;
-                        break;
-                    }
-                }
-                UpdateBoard(currentId);
-                currentId++;
+                GetRandomValue(currentId, ref value);
+                if (!CheckConflicts(currentId, value))
+                    currentId++;
             }
         }
 
+        void GetRandomValue(int currentId, ref int value)
+        {
+            Random random = new Random();
+            int stuck = 0;
+            while (true)
+            {
+                value = random.Next(1, 10);
+                if (!Fields[currentId].ForbiddenValues.Contains(value))
+                    break;
+                //Debug.WriteLine(currentId+"-----------------------------------------------");
+                //foreach (var element in SubGridsValues[Fields[currentId].SubGrid])
+                //    Debug.WriteLine("grid: "+element);
+                //foreach (var element in RowsValues[Fields[currentId].Row])
+                //    Debug.WriteLine("row: "+element);
+                //foreach (var element in ColumnsValues[Fields[currentId].Column])
+                //    Debug.WriteLine("column: "+element);
+                stuck++;
+                if (stuck > 50)
+                {
+                    //Undo(currentId, value);
+                    //currentId--;
+                    stuck = 0;
+                }
+            }
+        }
+
+        bool CheckConflicts(int currentId, int value)
+        {
+            if (!SubGridConflict(currentId, value) && !RowConflict(currentId, value) && !ColumnConflict(currentId, value))
+            {
+                SubGridsValues[Fields[currentId].SubGrid].Add(value);
+                RowsValues[Fields[currentId].Row].Add(value);
+                ColumnsValues[Fields[currentId].Column].Add(value);
+
+                History.Add(new Field(Fields[currentId].SubGrid, Fields[currentId].Row, Fields[currentId].Column));
+                
+                Fields[currentId].Value = value;
+                UpdateBoard(currentId);
+                return false;
+            }
+            if (!Fields[currentId].ForbiddenValues.Contains(value))
+                Fields[currentId].ForbiddenValues.Add(value);
+            return true;
+        }
+
+        void Undo(int currentId, int value)
+        {
+            // Add the wrong value to the ForbiddenValues list of the field
+            if (!Fields[currentId].ForbiddenValues.Contains(value))
+                Fields[currentId].ForbiddenValues.Add(value);
+            // Remove the value from the field
+            Fields[currentId].Value = 0;
+            // Remove the previously added values (to SubGridsValues, RowsValues, ColumnsValues)
+            SubGridsValues[History[History.Count - 1].SubGrid].RemoveAt(SubGridsValues[History[History.Count - 1].SubGrid].Count - 1);
+            RowsValues[History[History.Count - 1].Row].RemoveAt(RowsValues[History[History.Count - 1].Row].Count - 1);
+            ColumnsValues[History[History.Count - 1].Column].RemoveAt(ColumnsValues[History[History.Count - 1].Column].Count - 1);
+            // Remove the last record in the history
+            History.RemoveAt(History.Count - 1);
+        }
+
+        #region Check conflicts
         bool SubGridConflict(int currentId, int value)
         {
             if (SubGridsValues[Fields[currentId].SubGrid].Contains(value))
@@ -220,6 +275,7 @@ namespace _24_Sudoku_generator_and_solver
                 return true;
             return false;
         }
+        #endregion
 
         void UpdateBoard(int fieldId)
         {
