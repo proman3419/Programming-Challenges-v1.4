@@ -10,7 +10,8 @@ namespace _24_Sudoku_generator_and_solver
 {
     class Field
     {
-        public int Value { get; set; }
+        int Value { get { return Value; } set { Value = value; } }
+        public int value;
         public int SubGrid { get; set; }
 
         public Field(int row, int column)
@@ -50,13 +51,13 @@ namespace _24_Sudoku_generator_and_solver
         }
     }
 
-    class SudokuGenerator
+    class SudokuGeneratorSolver
     {
         Field[,] Fields { get; set; }
         Thread ResetIfStuckForever { get; set; }
         bool StuckForever { get; set; }
 
-        public SudokuGenerator()
+        public SudokuGeneratorSolver()
         {
             Fields = new Field[9, 9];
             StuckForever = false;
@@ -72,7 +73,17 @@ namespace _24_Sudoku_generator_and_solver
             ResetIfStuckForever = new Thread(() => { StuckForever = true; });
         }
 
-        public bool Generate()
+        void Display()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                    Console.Write(Fields[i, j].value + " ");
+                Console.WriteLine("\n");
+            }
+        }
+
+        bool BruteForce()
         {
             Random random = new Random();
             int value, stuck = 0, timeLimit = 100;
@@ -84,46 +95,56 @@ namespace _24_Sudoku_generator_and_solver
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    while (true)
+                    if (Fields[i, j].value == 0)
                     {
-                        value = GetRandomDigit(random);
-                        if (!SubGridConflict(i, j, value) && !RowConflict(i, value) && !ColumnConflict(j, value))
+                        while (true)
                         {
-                            Fields[i, j].Value = value;
-                            stuck = 0;
-                            break;
-                        }
-                        else
-                        {
-                            stuck++;
-                            if (stuck >= 50)
+                            value = GetRandomDigit(random);
+                            if (!SubGridConflict(i, j, value) && !RowConflict(i, value) && !ColumnConflict(j, value))
                             {
-                                Undo(ref i, ref j);
+                                Fields[i, j].value = value;
                                 stuck = 0;
+                                break;
                             }
-                        }
-
-                        if (timer.ElapsedMilliseconds >= timeLimit)
-                        {
-                            if (ResetIfStuckForever != null && ResetIfStuckForever.ThreadState
-                                == System.Threading.ThreadState.Unstarted)
+                            else
                             {
-                                ResetIfStuckForever.Start();
-                                ResetIfStuckForever = null;
+                                stuck++;
+                                if (stuck >= 50)
+                                {
+                                    Undo(ref i, ref j);
+                                    stuck = 0;
+                                }
                             }
-                        }
 
-                        if (StuckForever)
-                            return false;
+                            if (timer.ElapsedMilliseconds >= timeLimit)
+                            {
+                                if (ResetIfStuckForever != null && ResetIfStuckForever.ThreadState
+                                    == System.Threading.ThreadState.Unstarted)
+                                {
+                                    ResetIfStuckForever.Start();
+                                    ResetIfStuckForever = null;
+                                }
+                            }
+
+                            if (StuckForever)
+                                return false;
+                        }
                     }
                 }
             }
-            foreach (Field field in Fields)
-                if (field.Value == 0)
-                    return false;
-
-            Display();
             return true;
+        }
+
+        #region Generator
+        public bool Generate()
+        {
+            if (BruteForce())
+            {
+                Display();
+                return true;
+            }
+            else
+                return false;
         }
 
         int GetRandomDigit(Random random)
@@ -133,7 +154,7 @@ namespace _24_Sudoku_generator_and_solver
 
         void Undo(ref int row, ref int column)
         {
-            Fields[row, column].Value = 0;
+            Fields[row, column].value = 0;
             if (column == 0)
             {
                 row--;
@@ -148,7 +169,7 @@ namespace _24_Sudoku_generator_and_solver
             foreach (Field field in Fields)
             {
                 if (field.SubGrid == Fields[row, column].SubGrid)
-                    if (field.Value == value)
+                    if (field.value == value)
                         return true;
             }
             return false;
@@ -157,7 +178,7 @@ namespace _24_Sudoku_generator_and_solver
         bool RowConflict(int row, int value)
         {
             for (int j = 0; j < 9; j++)
-                if (Fields[row, j].Value == value)
+                if (Fields[row, j].value == value)
                     return true;
             return false;
         }
@@ -165,36 +186,79 @@ namespace _24_Sudoku_generator_and_solver
         bool ColumnConflict(int column, int value)
         {
             for (int i = 0; i < 9; i++)
-                if (Fields[i, column].Value == value)
+                if (Fields[i, column].value == value)
                     return true;
             return false;
         }
         #endregion
+        #endregion
 
-        void Display()
+        #region Solver
+        public void Solve()
         {
-            for (int i = 0; i < 9; i++)
+            if (GetInput() >= 17)
             {
-                for (int j = 0; j < 9; j++)
-                    Console.Write(Fields[i, j].Value + " ");
-                Console.WriteLine("\n");
+                if (BruteForce())
+                {
+                    Console.WriteLine("\nSolution");
+                    Display();
+                    return;
+                }
             }
-
+            Console.WriteLine("\nI can't solve this");
         }
+
+        int GetInput()
+        {
+            Console.WriteLine("Pass all fields' values, if the value is unknown input 0");
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                {
+                    Console.WriteLine("\nRow: {0} Column {1}", i, j);
+                    while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out Fields[i, j].value) ||
+                        !(0 <= Fields[i, j].value) || !(Fields[i, j].value <= 9))
+                        Console.WriteLine("\nWrong input");
+                }
+            int passedValues = 0;
+            foreach (Field field in Fields)
+                if (field.value > 0)
+                    passedValues++;
+            return passedValues;
+        }
+        #endregion
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            SudokuGenerator sudokuGenerator = new SudokuGenerator();
-            if (!sudokuGenerator.Generate())
-                do
-                {
-                    sudokuGenerator.Reset();
-                } while (!sudokuGenerator.Generate());
+            SudokuGeneratorSolver sudokuGeneratorSolver = new SudokuGeneratorSolver();
 
-            Console.ReadKey();
+            Console.WriteLine("1 Generate");
+            Console.WriteLine("2 Solve");
+            switch (GetInput())
+            {
+                case 1:
+                    if (!sudokuGeneratorSolver.Generate())
+                        do
+                        {
+                            sudokuGeneratorSolver.Reset();
+                        } while (!sudokuGeneratorSolver.Generate());
+                    break;
+                case 2:
+                    sudokuGeneratorSolver.Solve();
+                    break;
+            }
+            Console.ReadLine();
+        }
+
+        static int GetInput()
+        {
+            int temp;
+            while(!int.TryParse(Console.ReadKey().KeyChar.ToString(), out temp) || temp < 1 || temp > 2)
+                Console.WriteLine("\nWrong input");
+            Console.WriteLine();
+            return temp;
         }
     }
 }
