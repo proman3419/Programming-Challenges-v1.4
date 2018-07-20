@@ -83,11 +83,16 @@ namespace _24_Sudoku_generator_and_solver
             }
         }
 
-        bool BruteForce()
+        bool BruteForce(bool solve)
         {
             Random random = new Random();
-            int value, stuck = 0, timeLimit = 100;
+            int value, stuck = 0, timeLimit;
             Stopwatch timer = new Stopwatch();
+
+            if (solve)
+                timeLimit = 100000;
+            else
+                timeLimit = 100;
 
             timer.Start();
 
@@ -138,7 +143,7 @@ namespace _24_Sudoku_generator_and_solver
         #region Generator
         public bool Generate()
         {
-            if (BruteForce())
+            if (BruteForce(false))
             {
                 Display();
                 return true;
@@ -198,7 +203,7 @@ namespace _24_Sudoku_generator_and_solver
         {
             if (GetInput() >= 17)
             {
-                if (BruteForce())
+                if (BruteForce(true))
                 {
                     Console.WriteLine("\nSolution");
                     Display();
