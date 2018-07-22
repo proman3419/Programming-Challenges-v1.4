@@ -54,13 +54,10 @@ namespace _24_Sudoku_generator_and_solver
     class SudokuGeneratorSolver
     {
         Field[,] Fields { get; set; }
-        Thread ResetIfStuckForever { get; set; }
-        bool StuckForever { get; set; }
 
         public SudokuGeneratorSolver()
         {
             Fields = new Field[9, 9];
-            StuckForever = false;
             Reset();
         }
 
@@ -69,8 +66,6 @@ namespace _24_Sudoku_generator_and_solver
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
                     Fields[i, j] = new Field(i, j);
-            StuckForever = false;
-            ResetIfStuckForever = new Thread(() => { StuckForever = true; });
         }
 
         void Display()
@@ -83,16 +78,11 @@ namespace _24_Sudoku_generator_and_solver
             }
         }
 
-        bool BruteForce(bool solve)
+        bool BruteForce()
         {
             Random random = new Random();
-            int value, stuck = 0, timeLimit;
+            int value, stuck = 0, timeLimit = 10000;
             Stopwatch timer = new Stopwatch();
-
-            if (solve)
-                timeLimit = 100000;
-            else
-                timeLimit = 100;
 
             timer.Start();
 
@@ -122,16 +112,6 @@ namespace _24_Sudoku_generator_and_solver
                             }
 
                             if (timer.ElapsedMilliseconds >= timeLimit)
-                            {
-                                if (ResetIfStuckForever != null && ResetIfStuckForever.ThreadState
-                                    == System.Threading.ThreadState.Unstarted)
-                                {
-                                    ResetIfStuckForever.Start();
-                                    ResetIfStuckForever = null;
-                                }
-                            }
-
-                            if (StuckForever)
                                 return false;
                         }
                     }
@@ -141,15 +121,14 @@ namespace _24_Sudoku_generator_and_solver
         }
 
         #region Generator
-        public bool Generate()
+        public void Generate()
         {
-            if (BruteForce(false))
-            {
-                Display();
-                return true;
-            }
-            else
-                return false;
+            if (!BruteForce())
+                do
+                {
+                    Reset();
+                } while (!BruteForce());
+            Display();
         }
 
         int GetRandomDigit(Random random)
@@ -203,7 +182,7 @@ namespace _24_Sudoku_generator_and_solver
         {
             if (GetInput() >= 17)
             {
-                if (BruteForce(true))
+                if (BruteForce())
                 {
                     Console.WriteLine("\nSolution");
                     Display();
@@ -244,11 +223,7 @@ namespace _24_Sudoku_generator_and_solver
             switch (GetInput())
             {
                 case 1:
-                    if (!sudokuGeneratorSolver.Generate())
-                        do
-                        {
-                            sudokuGeneratorSolver.Reset();
-                        } while (!sudokuGeneratorSolver.Generate());
+                    sudokuGeneratorSolver.Generate();
                     break;
                 case 2:
                     sudokuGeneratorSolver.Solve();
