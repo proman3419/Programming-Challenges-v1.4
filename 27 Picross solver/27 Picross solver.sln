@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "27 Picross solver", "27 Picross solver\27 Picross solver.csproj", "{6DBE0F4A-EE24-4F07-A7F7-592793BDEF9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DBE0F4A-EE24-4F07-A7F7-592793BDEF9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DBE0F4A-EE24-4F07-A7F7-592793BDEF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DBE0F4A-EE24-4F07-A7F7-592793BDEF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DBE0F4A-EE24-4F07-A7F7-592793BDEF9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD469A21-262A-48A7-A8CC-510CA565CB4D}
+	EndGlobalSection
+EndGlobal
