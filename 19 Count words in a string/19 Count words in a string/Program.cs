@@ -41,11 +41,8 @@ namespace _19_Count_words_in_a_string
 
         void CountWords()
         {
-            foreach (Match match in Regex.Matches(Input, @"^\w\s+\w$"))
-                Words++;
-            if(!String.IsNullOrEmpty(Input))
-                if (!Regex.IsMatch(Input, @"^\s+$"))
-                    Words++;
+            char[] delimiters = new char[] { ' ', '\r', '\n', '.', '!', '?' };
+            Words = Input.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
         void CountLines()
