@@ -11,14 +11,14 @@ namespace _04_Encryption_decryption_algorithm
 {
     class Program
     {
-        static string savePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\saveFile.txt";
+        static string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "04 encrypted message.txt");
 
         static void Main(string[] args)
         {
             int input, translation;
             Random rand = new Random();
 
-            Console.WriteLine("Input 1 to encode a message, input 2 to decode a message");
+            Console.WriteLine("Input 1 to encrypt a message, input 2 to decrypt a message");
             while (!Int32.TryParse(Console.ReadLine(), out input))
                 Console.WriteLine("Invalid input");
             translation = rand.Next(5, 60);
@@ -36,7 +36,7 @@ namespace _04_Encryption_decryption_algorithm
 
         static void Encrypt(int translation)
         {
-            Console.WriteLine("Input a message which you want to encode/decode");
+            Console.WriteLine("Input a message which you want to encrypt/decrypt");
             string inputMessage = Console.ReadLine();
             File.WriteAllText(savePath, translation.ToString() + Environment.NewLine);
             StringBuilder stringBuilder = new StringBuilder();
@@ -50,13 +50,13 @@ namespace _04_Encryption_decryption_algorithm
 
         static void Decrypt()
         {
-            Console.WriteLine("Pass the full path of file with the coded message");
+            Console.WriteLine("Pass the full path of file with the encrypted message");
             string input;
             do
             {
                 input = Console.ReadLine();
                 if (!File.Exists(input))
-                    Console.WriteLine("Passed file doesn't exist");
+                    Console.WriteLine("The passed file doesn't exist");
             } while (!File.Exists(input));
             TextReader textReader = new StreamReader(input);
             int translation = Int32.Parse(textReader.ReadLine());
@@ -64,7 +64,7 @@ namespace _04_Encryption_decryption_algorithm
             StringBuilder stringBuilder = new StringBuilder();
             foreach (char element in messageFromFile)
                 stringBuilder.Append(Convert.ToChar(element - translation).ToString());
-            Console.Write(stringBuilder.ToString());
+            Console.Write("Decrypted message: " + stringBuilder.ToString());
         }
     }
 }
