@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +12,66 @@ namespace _30_Cipher_encryption_and_decryption_tool
         string Key { get; set; }
         string Message { get; set; }
         string Result { get; set; }
+        string SavePath { get; set; }
+        List<string> Parts { get; set; }
 
-        void GetInput(string temp1, string temp2)
+        public InterruptedKey()
+        {
+            SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "30 encrypted message.txt");
+            Parts = new List<string>();
+        }
+
+        #region Compositional functions
+        void GetInput(string temp1, string temp2, bool encrypt)
         {
             Console.WriteLine(temp1);
             Key = Console.ReadLine();
-            Console.WriteLine(temp2);
-            Message = Console.ReadLine();
+            if (encrypt)
+            {
+                Console.WriteLine(temp2);
+                Message = Console.ReadLine();
+            }            
         }
+
+        void Reset()
+        {
+            Parts.Clear();
+            Message = String.Empty;
+        }
+
+        void EncryptDecryptParts(bool encrypt)
+        {
+            List<string> temp = new List<string>();
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (string part in Parts)
+            {
+                for (int i = 0; i < part.Length; i++)
+                {
+                    if (encrypt)
+                        stringBuilder.Append(Convert.ToChar(part[i] + Key[i]));
+                    else
+                        stringBuilder.Append(Convert.ToChar(part[i] - Key[i]));
+                }
+                temp.Add(stringBuilder.ToString());
+                stringBuilder.Clear();
+            }
+            Parts = temp;
+        }
+        #endregion
 
         #region Encrypt
         public void Encrypt()
         {
-            GetInput(@"Input the key you wanted to use, for example ""APPLE""", "Input the message you want to encrypt");
-            List<string> parts = new List<string>();
+            GetInput(@"Input the key you wanted to use, for example ""APPLE""", "Input the message you want to encrypt", true);
             while (Message != String.Empty)
-                parts.Add(GetASubstring());
-            Display(EncryptDecryptParts(parts, true));
+                Parts.Add(GetASubstring());
+            EncryptDecryptParts(true);
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (string part in Parts)
+                stringBuilder.Append(part + " ");
+            Message = stringBuilder.ToString();
+            Save();
+            Reset();
         }
 
         string GetASubstring()
@@ -38,7 +82,7 @@ namespace _30_Cipher_encryption_and_decryption_tool
                 Random random = new Random();
                 int length = random.Next(1, Key.Length - 1);
                 temp = Message.Substring(0, length);
-                Message = Message.Substring(length - 1, Message.Length - length);
+                Message = Message.Substring(length);
             }
             else
             {
@@ -48,85 +92,53 @@ namespace _30_Cipher_encryption_and_decryption_tool
 
             return temp;
         }
+
+        void Save()
+        {
+            File.WriteAllText(SavePath, Message);
+            TextWriter textWriter = new StreamWriter(SavePath, false);
+            textWriter.Write(Message);
+            textWriter.Close();
+            Console.WriteLine("Your message has been encrypted and saved to this file:" + Environment.NewLine + SavePath);
+        }
         #endregion
 
         #region Decrypt
         public void Decrypt()
         {
-            GetInput("Input the key", "Input the encrypted message");
-            List<string> parts = new List<string>();
+            ReadFromFile();
+            GetInput("Input the key", " ", false);
+            EncryptDecryptParts(false);
+            Display();
+            Reset();
+        }
+
+        void ReadFromFile()
+        {
+            Console.WriteLine("Pass the full path of file with the encrypted message");
+            string input;
+            do
+            {
+                input = Console.ReadLine();
+                if (!File.Exists(input))
+                    Console.WriteLine("The passed file doesn't exist");
+            } while (!File.Exists(input));
+
+            TextReader textReader = new StreamReader(input);
+            Message = textReader.ReadToEnd().ToString();
             string[] temp = Message.Split(' ');
-            for (int i = 0; i < temp.Length; i++)
-                parts.Add(temp[i]);
-
-            Display(EncryptDecryptParts(parts, false));
-        }
-        #endregion
-
-        List<string> EncryptDecryptParts(List<string> parts, bool encrypt)
-        {
-            List<string> temp = new List<string>();
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (string part in parts)
-            {
-                for (int i = 0; i < part.Length; i++)
-                {
-                    if (encrypt)
-                    {
-                        Console.WriteLine(part[i] + "|" + Key[i]);
-                        int a = part[i];
-                        int b = Key[i];
-                        int c = part[i] + Key[i];
-                        Console.WriteLine(a + "|" + b + "|" + c);
-                        stringBuilder.Append(Convert.ToChar(part[i] + Key[i]));
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(part[i] + "|" + Key[i]);
-                        int a = part[i];
-                        int b = Key[i];
-                        int c = part[i] - Key[i];
-                        Console.WriteLine(a + "|" + b + "|" + c);
-                        //stringBuilder.Append(Convert.ToChar(Convert.ToInt32(part[i] - Key[i])));
-                    }
-
-
-                }
-
-                temp.Add(stringBuilder.ToString());
-                stringBuilder.Clear();
-            }
-            return temp;
+            foreach (string part in temp)
+                Parts.Add(part);
         }
 
-        void Display(List<string> message)
+        void Display()
         {
-            foreach (string part in message)
-            {
-                foreach (char character in part)
-                {
-                    string temp = HexStringToString(((int)character).ToString("X4"));
-                    Console.Write(temp);
-                }
-            }            
+            Console.Write("Decrypted message: ");
+            foreach (string part in Parts)
+                Console.Write(part);
             Console.WriteLine();
         }
-
-        string HexStringToString(string hexString)
-        {
-            if (hexString == null || (hexString.Length & 1) == 1)
-            {
-                throw new ArgumentException();
-            }
-            var sb = new StringBuilder();
-            for (var i = 0; i < hexString.Length; i += 2)
-            {
-                var hexChar = hexString.Substring(i, 2);
-                sb.Append((char)Convert.ToByte(hexChar, 16));
-            }
-            return sb.ToString();
-        }
+        #endregion
     }
 
     class Program
@@ -135,10 +147,27 @@ namespace _30_Cipher_encryption_and_decryption_tool
         {
             InterruptedKey interruptedKey = new InterruptedKey();
 
-            interruptedKey.Encrypt();
-            interruptedKey.Decrypt();
+            switch (GetInput())
+            {
+                case 1:
+                    interruptedKey.Encrypt();
+                    break;
+                case 2:
+                    interruptedKey.Decrypt();
+                    break;
+            }
 
             Console.ReadLine();
+        }
+
+        static int GetInput()
+        {
+            int input;
+            Console.WriteLine("Input 1 to encrypt a message, input 2 to decrypt a message");
+            while (!Int32.TryParse(Console.ReadKey().KeyChar.ToString(), out input))
+                Console.WriteLine("\nInvalid input");
+            Console.WriteLine();
+            return input;
         }
     }
 }
