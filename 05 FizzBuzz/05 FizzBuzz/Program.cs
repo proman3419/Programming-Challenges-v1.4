@@ -10,25 +10,14 @@ namespace _05_FizzBuzz
     {
         static void Main(string[] args)
         {
-            int k = 1, l = 1;
             for (int i = 1; i < 101; i++)
             {
-                if (i % (3 * k) == 0 && i % (5 * l) == 0)
-                {
+                if (i % 15 == 0)
                     Console.WriteLine("FizzBuzz");
-                    k++;
-                    l++;
-                }
-                else if (i % (3 * k) == 0)
-                {
+                else if (i % 3 == 0)
                     Console.WriteLine("Fizz");
-                    k++;
-                }
-                else if (i % (5 * l) == 0)
-                {
+                else if (i % 5 == 0)
                     Console.WriteLine("Buzz");
-                    l++;
-                }
                 else
                     Console.WriteLine(i);
             }
