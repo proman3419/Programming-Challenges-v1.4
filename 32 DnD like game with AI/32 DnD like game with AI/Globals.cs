@@ -50,10 +50,20 @@ namespace _32_DnD_like_game_with_AI
             }
         }
 
-        public static void DrawSeparators(string segment)
+        public static void DrawSeparators(string segment, string text)
         {
-            for (int i = 0; i < WindowWidth; i++)
+            for (int i = 0; i < (WindowWidth - text.Length) / 2; i++)
                 Console.Write(segment);
+            Console.Write(text);
+            for (int i = 0; i < (WindowWidth - text.Length) / 2; i++)
+                Console.Write(segment);
+            if (text.Length % 2 != 0)
+                Console.Write(segment);
+        }
+
+        public static int Map(int value, int from1, int to1, int from2, int to2)
+        {
+            return (value - from1) * (to2 - from2) / (to1 - from1) + from2;
         }
     }
 }

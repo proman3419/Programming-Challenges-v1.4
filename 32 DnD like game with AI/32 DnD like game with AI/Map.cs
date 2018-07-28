@@ -8,13 +8,12 @@ namespace _32_DnD_like_game_with_AI
 {
     class Field
     {
-        bool Enemy { get; set; }
-        bool Boss { get; set; }
-        bool NPC { get; set; }
-        bool Empty { get; set; }
+        public bool Enemy { get; set; }
+        public bool Boss { get; set; }
+        public bool NPC { get; set; }
+        public bool Empty { get; set; }
         public bool Exists { get; set; }
 
-        public bool Visited { get; set; }
         string Visual { get; set; }
 
         public Field(int type)
@@ -58,6 +57,16 @@ namespace _32_DnD_like_game_with_AI
             Console.Write(Visual);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+
+        public void FieldAction(Player player)
+        {
+            if (Enemy)
+                DungeonMaster.Fight(player, new Enemy(player, false));
+            if (Boss)
+                DungeonMaster.Fight(player, new Enemy(player, true));
+
+            player.LevelUp(false);
+        }
     }
 
     class Map
@@ -69,10 +78,14 @@ namespace _32_DnD_like_game_with_AI
 
         public Map()
         {
-            Console.WriteLine("Width of the map");
-            Width = Globals.GetNumericInput(1, Globals.WindowWidth);
-            Console.WriteLine("Height of the map");
-            Height = Globals.GetNumericInput(1, Globals.WindowHeight);
+            // Allow user to choose measurments of the map
+            //Console.WriteLine("Width of the map");
+            //Width = Globals.GetNumericInput(1, Globals.WindowWidth);
+            //Console.WriteLine("Height of the map");
+            //Height = Globals.GetNumericInput(1, Globals.WindowHeight);
+            Random random = new Random();
+            Width = random.Next((int)(0.5 * Globals.WindowWidth), Globals.WindowWidth);
+            Height = random.Next((int)(0.5 * Globals.WindowHeight), Globals.WindowHeight);
             MapFields = new Field[Width, Height];
             PlayerPosition = new int[] { 0, 0 };
             CreateMap();
@@ -87,10 +100,7 @@ namespace _32_DnD_like_game_with_AI
                 {
                     randomValue = random.Next(0, 100);
                     if (x == 0 && y == 0)
-                    {
                         MapFields[x, y] = new Field(3);
-                        MapFields[x, y].Visited = true;
-                    }
                     else if (randomValue < 10)
                         MapFields[x, y] = new Field(0);
                     else if (randomValue < 11)
@@ -102,12 +112,10 @@ namespace _32_DnD_like_game_with_AI
                     else if (randomValue < 100)
                         MapFields[x, y] = new Field(4);
                 }
-            ShowMap();
         }
 
-        public void ShowMap()
+        public void Show()
         {
-            Globals.DrawSeparators("-");
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
@@ -124,18 +132,19 @@ namespace _32_DnD_like_game_with_AI
                 if (Width != Globals.WindowWidth)
                     Console.WriteLine();
             }
-            Globals.DrawSeparators("-");
         }
 
-        public void Move(int[] direction)
+        public void Move(int[] direction, Player player)
         {
             if (CheckIfFieldExists(direction))
             {
                 PlayerPosition[0] += direction[0];
                 PlayerPosition[1] += direction[1];
-                ShowMap();
+                MapFields[PlayerPosition[0], PlayerPosition[1]].FieldAction(player);
+                Visit();
             }
-            else Console.WriteLine("I don't feel like going there <lazy>");
+            else
+                DungeonMaster.Say("There is an enormous hole that you are not able to overcome");
         }
 
         bool CheckIfFieldExists(int[] direction)
@@ -147,6 +156,11 @@ namespace _32_DnD_like_game_with_AI
             }
             catch { return false; }
             return false;
+        }
+
+        void Visit()
+        {
+            MapFields[PlayerPosition[0], PlayerPosition[1]] = new Field(3);
         }
     }
 }

@@ -11,9 +11,10 @@ namespace _32_DnD_like_game_with_AI
         Player _Player { get; set; }
         Map _Map { get; set; }
 
+
         public Game()
         {
-            Globals.Initialize();
+            Globals.Initialize();            
             _Player = new Player();
             _Map = new Map();
         }
@@ -21,22 +22,37 @@ namespace _32_DnD_like_game_with_AI
         public void Play()
         {
             string input;
+            DungeonMaster.Say("If you feel confused ask me about help");
+            DungeonMaster.Say("I created a map for today's session");
+            DungeonMaster.Say("If you don't like it use resetmap command");
+            _Map.Show();
             while (_Player.IsAlive)
             {
+                _Player.DisplayStatus();
                 input = Console.ReadLine();
                 switch (input.ToLower())
                 {
-                    case "up":
-                        _Map.Move(new int[2] { 0, -1 });
+                    case "help":
                         break;
-                    case "right":
-                        _Map.Move(new int[2] { 1, 0 });
+                    case "map":
+                        _Map.Show();
                         break;
-                    case "down":
-                        _Map.Move(new int[2] { 0, 1 });
+                    case "resetmap":
+                        DungeonMaster.Say("This is the new map, I hope you like it");
+                        _Map = new Map();
+                        _Map.Show();
                         break;
-                    case "left":
-                        _Map.Move(new int[2] { -1, 0 });
+                    case "north":
+                        _Map.Move(new int[2] { 0, -1 }, _Player);
+                        break;
+                    case "east":
+                        _Map.Move(new int[2] { 1, 0 }, _Player);
+                        break;
+                    case "south":
+                        _Map.Move(new int[2] { 0, 1 }, _Player);
+                        break;
+                    case "west":
+                        _Map.Move(new int[2] { -1, 0 }, _Player);
                         break;
                     default:
                         Console.WriteLine("Unknown command used");
