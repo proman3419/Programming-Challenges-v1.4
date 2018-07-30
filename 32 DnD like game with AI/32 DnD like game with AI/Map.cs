@@ -13,6 +13,7 @@ namespace _32_DnD_like_game_with_AI
         public bool NPC { get; set; }
         public bool Empty { get; set; }
         public bool Exists { get; set; }
+        public bool Door { get; set; }
 
         string Visual { get; set; }
 
@@ -41,6 +42,10 @@ namespace _32_DnD_like_game_with_AI
                     Exists = false;
                     Visual = " ";
                     break;
+                case 5:
+                    Door = true;
+                    Visual = "#";
+                    break;
             }
         }
 
@@ -54,27 +59,30 @@ namespace _32_DnD_like_game_with_AI
                 Console.ForegroundColor = ConsoleColor.Green;
             if (Empty)
                 Console.ForegroundColor = ConsoleColor.Gray;
+            if (Door)
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(Visual);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void FieldAction(Player player)
+        public void FieldAction()
         {
             if (Enemy)
-                DungeonMaster.Fight(player, new Enemy(player, false));
+                DungeonMaster.Fight(new Enemy(false));
             if (Boss)
-                DungeonMaster.Fight(player, new Enemy(player, true));
-
-            player.LevelUp(false);
+                DungeonMaster.Fight(new Enemy(true));
+            if (NPC)
+            {
+                NPC npc = new NPC();
+            }
         }
     }
 
     class Map
     {
-        Field[,] MapFields { get; set; }
+        public Field[,] MapFields { get; set; }
         int Width { get; set; }
         int Height { get; set; }
-        int[] PlayerPosition { get; set; }
 
         public Map()
         {
@@ -87,7 +95,6 @@ namespace _32_DnD_like_game_with_AI
             Width = random.Next((int)(0.5 * Globals.WindowWidth), Globals.WindowWidth);
             Height = random.Next((int)(0.5 * Globals.WindowHeight), Globals.WindowHeight);
             MapFields = new Field[Width, Height];
-            PlayerPosition = new int[] { 0, 0 };
             CreateMap();
         }
 
@@ -112,6 +119,19 @@ namespace _32_DnD_like_game_with_AI
                     else if (randomValue < 100)
                         MapFields[x, y] = new Field(4);
                 }
+            Player.Position[0] = 0;
+            Player.Position[1] = 0;
+            // Select field on which there will be an entrance to the next level
+            while (true)
+            {
+                int doorX = random.Next(0, Width);
+                int doorY = random.Next(0, Height);
+                if (doorX != Player.Position[0] && doorY != Player.Position[1])
+                {
+                    MapFields[doorX, doorY] = new Field(5);
+                    break;
+                }
+            }
         }
 
         public void Show()
@@ -120,7 +140,7 @@ namespace _32_DnD_like_game_with_AI
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    if (x == PlayerPosition[0] && y == PlayerPosition[1])
+                    if (x == Player.Position[0] && y == Player.Position[1])
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("X");
@@ -134,14 +154,15 @@ namespace _32_DnD_like_game_with_AI
             }
         }
 
-        public void Move(int[] direction, Player player)
+        public void Move(int[] direction)
         {
             if (CheckIfFieldExists(direction))
             {
-                PlayerPosition[0] += direction[0];
-                PlayerPosition[1] += direction[1];
-                MapFields[PlayerPosition[0], PlayerPosition[1]].FieldAction(player);
-                Visit();
+                Player.Position[0] += direction[0];
+                Player.Position[1] += direction[1];
+                MapFields[Player.Position[0], Player.Position[1]].FieldAction();
+                if(!MapFields[Player.Position[0], Player.Position[1]].Door)
+                    Visit();
             }
             else
                 DungeonMaster.Say("There is an enormous hole that you are not able to overcome");
@@ -151,16 +172,16 @@ namespace _32_DnD_like_game_with_AI
         {
             try
             {
-                if (MapFields[PlayerPosition[0] + direction[0], PlayerPosition[1] + direction[1]].Exists)
+                if (MapFields[Player.Position[0] + direction[0], Player.Position[1] + direction[1]].Exists)
                     return true;
             }
             catch { return false; }
             return false;
         }
-
+                
         void Visit()
         {
-            MapFields[PlayerPosition[0], PlayerPosition[1]] = new Field(3);
+            MapFields[Player.Position[0], Player.Position[1]] = new Field(3);
         }
     }
 }

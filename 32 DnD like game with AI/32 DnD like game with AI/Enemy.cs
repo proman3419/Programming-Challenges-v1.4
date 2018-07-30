@@ -15,19 +15,19 @@ namespace _32_DnD_like_game_with_AI
         public int MinAttack { get; set; }
         public int MaxAttack { get; set; }
 
-        public Enemy(Player player, bool boss)
+        public Enemy(bool boss)
         {
-            float multiplier = 0.5f;
+            float multiplier = 0.7f;
             if (boss)
             {
-                multiplier = 0.7f;
+                multiplier = 1f;
                 Boss = true;
             }
             Name = GetName();
-            MaxHealth = (int)(multiplier * player.MaxHealth);
+            MaxHealth = (int)(multiplier * Player.MaxHealth);
             CurrentHealth = MaxHealth;
-            MinAttack = (int)(multiplier * player.MinAttack);
-            MaxAttack = (int)(multiplier * player.MaxAttack);
+            MinAttack = (int)(multiplier * Player.MinAttack);
+            MaxAttack = (int)(multiplier * Player.MaxAttack);
         }
 
         string GetName()
@@ -43,14 +43,18 @@ namespace _32_DnD_like_game_with_AI
             return names[random.Next(0, names.Length - 1)];
         }
 
-        public int GiveExp(Player player)
+        public void Loot()
         {
             Random random = new Random();
             int value = random.Next(0, 10);
             int multiplier = 25;
             if (Boss)
                 multiplier = 75;
-            return Globals.Map(value, 0, 10, multiplier * player.Level, 2 * multiplier * player.Level);
+            int exp = Globals.Map(value, 0, 10, multiplier * Player.Level, 4 * multiplier * Player.Level);
+            int gold = Globals.Map(value, 0, 10, multiplier * Player.Level, (int)(2.5 * multiplier * Player.Level));
+            Player.Exp += exp;
+            Player.Gold += gold;
+            DungeonMaster.Say("You gained " + exp + "exp and " + gold + "gold");
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

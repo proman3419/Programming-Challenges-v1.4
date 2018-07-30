@@ -14,7 +14,7 @@ namespace _32_DnD_like_game_with_AI
             Console.WriteLine("<Dungeon Master>{0}", phrase);
         }
 
-        public static void Fight(Player player, Enemy enemy)
+        public static void Fight(Enemy enemy)
         {
             Say("You feel an appearance of something behind your back. You turn back rapdily to confuse the potential oponent. " +
                 "Your instinct was right, you see a rushing " + enemy.Name + " towards you. The fight begins");
@@ -22,7 +22,7 @@ namespace _32_DnD_like_game_with_AI
             int hit;
             while (true)
             {
-                hit = Hit(random, player.MinAttack, player.MaxAttack);
+                hit = Hit(random, Player.MinAttack, Player.MaxAttack);
                 enemy.CurrentHealth -= hit;
                 if (hit == 0)
                     Say("You miss the enemy");
@@ -35,11 +35,11 @@ namespace _32_DnD_like_game_with_AI
                 if (enemy.CurrentHealth <= 0)
                 {
                     Say("You've killed the skank");
-                    player.Exp += enemy.GiveExp(player);
+                    enemy.Loot();
                     break;
                 }
                 hit = Hit(random, enemy.MinAttack, enemy.MaxAttack);
-                player.CurrentHealth -= hit;
+                Player.CurrentHealth -= hit;
                 if (hit == 0)
                     Say("The enemy gets distracted by your moves and misses their's hit");
                 else if (hit < 6)
@@ -48,13 +48,14 @@ namespace _32_DnD_like_game_with_AI
                     Say("The oponent punches you in the face causing a blackout. The hit dealt " + hit + " damage");
                 else
                     Say("The oponent turns your strike against you dealing destructive " + hit + " damage");
-                if (player.CurrentHealth <= 0)
+                if (Player.CurrentHealth <= 0)
                 {
                     Say("You've been defeated by " + enemy.Name + ". Your adventure ends up here");
-                    player.IsAlive = false;
+                    Player.IsAlive = false;
                     break;
                 }
             }
+            Player.LevelUp(false);
         }
 
         static int Hit(Random random, int minAttack, int maxAttack)

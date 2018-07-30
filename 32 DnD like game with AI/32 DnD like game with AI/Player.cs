@@ -8,26 +8,30 @@ namespace _32_DnD_like_game_with_AI
 {
     class Player
     {
-        public int Level { get; set; }
-        public int Exp { get; set; }
-        int NextLevelExp { get; set; }
-        public int MaxHealth { get; set; }
-        public int CurrentHealth { get; set; }
-        public bool IsAlive { get; set; }
-        public int MinAttack { get; set; }
-        public int MaxAttack { get; set; }
+        public static int Level { get; set; }
+        public static int Exp { get; set; }
+        static int NextLevelExp { get; set; }
+        public static int MaxHealth { get; set; }
+        public static int CurrentHealth { get; set; }
+        public static bool IsAlive { get; set; }
+        public static int MinAttack { get; set; }
+        public static int MaxAttack { get; set; }
+        public static int Gold { get; set; }
+        public static int[] Position { get; set; }
 
-        public Player()
+        public static void Initialize()
         {
             IsAlive = true;
-            Level = 1;
+            Gold = 100;
             LevelUp(true);
+            Position = new int[] { 0, 0 };
         }
 
-        public void LevelUp(bool initialize)
+        public static void LevelUp(bool initialize)
         {
-            if (Exp > NextLevelExp || initialize)
+            while (Exp > NextLevelExp || initialize)
             {
+                Level++;
                 Exp -= NextLevelExp;
                 NextLevelExp = 100 * Level;
                 MaxHealth = 100 * Level;
@@ -35,15 +39,16 @@ namespace _32_DnD_like_game_with_AI
                 MinAttack = 5 * Level;
                 MaxAttack = 15 * Level;
                 if(!initialize)
-                    DungeonMaster.Say("You level up!");
+                    DungeonMaster.Say("You leveled up!");
+                initialize = false;
             }
         }
 
-        public void DisplayStatus()
+        public static void DisplayStatus()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("<{0}lvl {1}/{2}exp {3}/{4}hp {5}-{6}dmg>", Level, Exp, NextLevelExp, CurrentHealth, MaxHealth,
-                MinAttack, MaxAttack);
+                MinAttack, MaxAttack, Gold);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
     }

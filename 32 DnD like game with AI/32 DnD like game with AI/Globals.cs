@@ -40,7 +40,7 @@ namespace _32_DnD_like_game_with_AI
                         continue;
                     }
                 }
-                catch { value = 9999; };
+                catch (StackOverflowException) { value = 9999; };
                 if (value > maxValue)
                 {
                     Console.WriteLine("The value is too high, max value = {0}", maxValue);
