@@ -135,7 +135,7 @@ namespace _21_Connect_four
             field.Height = FieldSize;
             field.Width = FieldSize;
             field.IsReadOnly = true;
-            field.Cursor = Cursors.Arrow;
+            field.Cursor = Cursors.Hand;
             field.Focusable = false;
         }
 

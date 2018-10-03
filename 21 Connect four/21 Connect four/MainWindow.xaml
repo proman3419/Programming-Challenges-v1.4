@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_21_Connect_four"
         mc:Ignorable="d"
-        Title="Connect four"  Height="750" Width="750" FontSize="20" ResizeMode="NoResize">
+        Title="Connect four" Height="750" Width="750" FontSize="20" ResizeMode="NoResize">
     <Grid>
         <!--#region Row definitions-->
         <Grid.RowDefinitions>
