@@ -36,7 +36,7 @@ namespace _04_Encryption_decryption_algorithm
 
         static void Encrypt(int translation)
         {
-            Console.WriteLine("Input a message which you want to encrypt/decrypt");
+            Console.WriteLine("Input a message which you want to encrypt");
             string inputMessage = Console.ReadLine();
             File.WriteAllText(savePath, translation.ToString() + Environment.NewLine);
             StringBuilder stringBuilder = new StringBuilder();

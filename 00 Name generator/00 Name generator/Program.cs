@@ -24,7 +24,7 @@ namespace _00_Name_generator
                     letter = letter.ToLower();
                 name += letter;
             }
-            Console.WriteLine("This is the brand new generated name:");
+            Console.WriteLine("This is a brand new generated name:");
             Console.WriteLine(name);
             Console.Read();
         }

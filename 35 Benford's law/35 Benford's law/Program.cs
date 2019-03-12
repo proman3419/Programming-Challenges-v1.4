@@ -36,15 +36,11 @@ namespace _35_Benford_s_law
             } while (!File.Exists(input));
 
             TextReader textReader = new StreamReader(input);
-            string[] dataFromFile = textReader.ReadToEnd().ToString().Split(' ');
-            foreach (string data in dataFromFile)
+            string dataFromFile = textReader.ReadToEnd().ToString();
+            foreach (char character in dataFromFile)
             {
-                try { Digits.Add(Double.Parse(data[0].ToString())); }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Part of the data wasn't a number. The program will now exit");
-                    Environment.Exit(-1);
-                }
+                if (char.IsDigit(character))
+                    Digits.Add(Double.Parse(character.ToString()));
             }
         }
 

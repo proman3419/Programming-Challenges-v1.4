@@ -65,12 +65,12 @@ namespace _32_DnD_like_game_with_AI
         public NPC()
         {
             Random random = new Random();
-            int NPCType = random.Next(0, 3);
-            if (NPCType == 0)
+            int NPCType = random.Next(0, 100);
+            if (0 <= NPCType && NPCType < 33)
                 Heal();
-            if (NPCType == 1)
+            if (33 <= NPCType && NPCType < 66)
                 Trade();
-            if (NPCType == 2)
+            if (66 <= NPCType && NPCType < 100)
                 Steal();
         }
 
@@ -147,6 +147,12 @@ namespace _32_DnD_like_game_with_AI
                         try { id = int.Parse(input); }
                         catch(StackOverflowException)
                         { DungeonMaster.Say("The dwarves don't have such an item for sell"); continue; }
+                        catch(FormatException)
+                        {
+                            DungeonMaster.Say("Just tell me what's the number of the item on the list. Don't forget that " +
+                              "dwarves count from 0.");
+                            continue;
+                        }
                         try
                         {
                             if (CheckIfEnoughGold(Items[id].Price))
@@ -165,7 +171,7 @@ namespace _32_DnD_like_game_with_AI
 
         void Steal()
         {
-            DungeonMaster.Say("You enter the dark cave. After a few steps you hear feel that your puch has gone. Suddenly you hear" +
+            DungeonMaster.Say("You enter a dark cave. After a few steps you hear feel that your puch has gone. Suddenly you hear " +
                 "a clink of coins somewhere on front of you. You rush rapidly and hit something, it runs away dropping coins. You " +
                 "see that chase doesn't make sense since you can barely see so you focus on collecting the dropped coins");
             Random random = new Random();

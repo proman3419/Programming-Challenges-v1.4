@@ -5,3 +5,10 @@ C:\Users\Przemek\Desktop\Challenge\04 Encryption-decryption algorithm\04 Encrypt
 C:\Users\Przemek\Desktop\Challenge\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.csproj.CoreCompileInputs.cache
 C:\Users\Przemek\Desktop\Challenge\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.exe
 C:\Users\Przemek\Desktop\Challenge\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\bin\Debug\04 Encryption-decryption algorithm.exe.config
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\bin\Debug\04 Encryption-decryption algorithm.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\bin\Debug\04 Encryption-decryption algorithm.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.csprojAssemblyReference.cache
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.csproj.CoreCompileInputs.cache
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\04 Encryption-decryption algorithm\04 Encryption-decryption algorithm\obj\Debug\04 Encryption-decryption algorithm.pdb

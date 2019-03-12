@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "40 Perlin noise", "40 Perlin noise.csproj", "{9C00250D-1A58-2386-BF00-4B361C254532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{9937D515-0077-E911-88D1-AFEB6AA3FFCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9C00250D-1A58-2386-BF00-4B361C254532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C00250D-1A58-2386-BF00-4B361C254532}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C00250D-1A58-2386-BF00-4B361C254532}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C00250D-1A58-2386-BF00-4B361C254532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9937D515-0077-E911-88D1-AFEB6AA3FFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9937D515-0077-E911-88D1-AFEB6AA3FFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9937D515-0077-E911-88D1-AFEB6AA3FFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9937D515-0077-E911-88D1-AFEB6AA3FFCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

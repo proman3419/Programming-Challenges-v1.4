@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_45_Tic_tac_toe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600" FontSize="16" ResizeMode="NoResize">
+        Title="Tic tac toe" Height="600" Width="600" FontSize="16" ResizeMode="NoResize">
     <Grid>
         <!--#region Row definitions-->
         <Grid.RowDefinitions>

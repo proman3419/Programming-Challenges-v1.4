@@ -56,12 +56,14 @@ namespace _23_4chan_thread_downloader
 
         public void DownloadImages()
         {
+
             int temp1 = Url.IndexOf("4chan.org") + 9;
             int temp2 = Url.IndexOf("thread/");
             ImagesDownloadUrl = "http://i.4cdn.org" + Url.Substring(temp1, temp2 - temp1);
 
             foreach (Match m in Regex.Matches(NewWebPageCode, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase | RegexOptions.Multiline))
-                ImagesSrcs.Add("http:" + m.Groups[1].Value);
+                ImagesSrcs.Add("http:" + m.Groups[1].Value); 
+            
             int downloadedImgs = 0;
             foreach (var imgSrc in ImagesSrcs)
             {
@@ -81,18 +83,18 @@ namespace _23_4chan_thread_downloader
             catch { return false; }
         }
 
-        //void UpdateSrcs()
-        //{
-        //    foreach (var src in ImagesSrcs)
-        //    {
-        //        NewImageSrcs.Add(src.Substring(src.IndexOf(ImagesDownloadUrl), ImagesDownloadUrl.Length - 1)); 
-        //        foreach (var newSrc in NewImageSrcs)
-        //        {
-        //            NewWebPageCode.Replace(src.Substring(5, src.Length - 1), newSrc); // Remove http:
-        //        }
-        //    }
-        //    Save(true);
-        //}
+        void UpdateSrcs()
+        {
+            foreach (var src in ImagesSrcs)
+            {
+                NewImageSrcs.Add(src.Substring(src.IndexOf(ImagesDownloadUrl), ImagesDownloadUrl.Length - 1));
+                foreach (var newSrc in NewImageSrcs)
+                {
+                    NewWebPageCode.Replace(src.Substring(5, src.Length - 1), newSrc); // Remove http:
+                }
+            }
+            Save(true);
+        }
 
         string GetPosts()
         {

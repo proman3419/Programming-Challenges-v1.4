@@ -48,7 +48,7 @@ namespace _01_Higher_lower_heads_tails
             string inputString;
 
             number = rand.Next(0, 2);
-            Console.WriteLine("Guess which side of the coin is faced up. Input 0 to vote for head, input 1 to vote for tail");
+            Console.WriteLine("Guess which side of the coin is faced up.");
             do
             {
                 inputString = Console.ReadLine().ToLower();

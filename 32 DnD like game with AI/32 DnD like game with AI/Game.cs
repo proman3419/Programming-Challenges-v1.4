@@ -31,6 +31,7 @@ namespace _32_DnD_like_game_with_AI
                 switch (input.ToLower())
                 {
                     case "help":
+                        Help();
                         break;
                     case "map":
                         _Map.Show();
@@ -68,6 +69,17 @@ namespace _32_DnD_like_game_with_AI
                     _Map.Show();
                 }
             }
+        }
+
+        private void Help()
+        {
+            DungeonMaster.Say("map -> displays the map");
+            DungeonMaster.Say("resetmap -> creates a new map");
+            DungeonMaster.Say("gold -> displays how much gold you have");
+            DungeonMaster.Say("north -> move up on the map");
+            DungeonMaster.Say("east -> move right on the map");
+            DungeonMaster.Say("south -> move down on the map");
+            DungeonMaster.Say("west -> move left on the map");
         }
     }
 }

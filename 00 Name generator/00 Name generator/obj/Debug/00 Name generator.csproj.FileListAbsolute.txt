@@ -5,3 +5,10 @@ C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug
 C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.csproj.CoreCompileInputs.cache
 C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.exe
 C:\Users\Przemek\Desktop\Challenge\00 Name generator\00 Name generator\obj\Debug\00 Name generator.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\obj\Debug\00 Name generator.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\obj\Debug\00 Name generator.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\bin\Debug\00 Name generator.exe.config
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\bin\Debug\00 Name generator.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\bin\Debug\00 Name generator.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\obj\Debug\00 Name generator.csprojAssemblyReference.cache
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\00 Name generator\00 Name generator\obj\Debug\00 Name generator.csproj.CoreCompileInputs.cache

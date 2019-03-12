@@ -5,3 +5,10 @@ C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower h
 C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.csproj.CoreCompileInputs.cache
 C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.exe
 C:\Users\Przemek\Desktop\Challenge\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.exe.config
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\bin\Debug\01 Higher-lower heads-tails.pdb
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.csprojAssemblyReference.cache
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.csproj.CoreCompileInputs.cache
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.exe
+C:\Users\przemek\Documents\Programming-Challenges-v1.4\01 Higher-lower heads-tails\01 Higher-lower heads-tails\obj\Debug\01 Higher-lower heads-tails.pdb

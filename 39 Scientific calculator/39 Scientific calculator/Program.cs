@@ -70,8 +70,8 @@ namespace _39_Scientific_calculator
                         break;
                     case "fact":
                         Result = 1;
-                        for (int i = 1; i < value; i++)
-                            Result *= value;
+                        for (int i = 1; i <= value; i++)
+                            Result *= i;
                         break;
                     case "mod":
                         if (value < 0)
