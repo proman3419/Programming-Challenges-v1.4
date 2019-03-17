@@ -29,8 +29,8 @@ class Client():
         cmd = user_input[0]
         args = user_input[1:] if len(user_input) > 1 else None
 
-        if cmd == 'c': # connect
-          self.connect('speedtest.tele2.net') # args[0] speedtest.tele2.net
+        if cmd == 'connect': # connect
+          self.connect(args[0]) # args[0] speedtest.tele2.net
 
           try:
             self.login(args[1], args[2])
@@ -52,11 +52,14 @@ class Client():
         elif cmd == 'rm':
           self.ftp_session.delete(args[0])
 
-        elif cmd == 'send':
-          self.send(args[0])
+        elif cmd == 'post':
+          self.post(args[0])
 
         elif cmd == 'get':
           self.get(args[0])
+
+        elif cmd == 'exit':
+          exit()
 
         self.update_command_prompt()
 
@@ -103,9 +106,7 @@ class Client():
 
     print('\n'.join(_lines))
 
-  def send(self, path):
-    path = '/home/przemek/test.txt'
-
+  def post(self, path):
     if os.path.exists(path):
       result = ''
 
@@ -131,7 +132,6 @@ class Client():
       self.get_file(path)
     except ftplib.error_perm as e:
       self.get_dir(path, e)
-      print(e)
 
   def get_file(self, path):
     file_n = os.path.basename(path)
@@ -145,9 +145,9 @@ class Client():
     print('File saved as {}'.format(os.path.join(curr_dir_n, file_n)))
 
   def get_dir(self, path, e):
-    if e == '550 Failed to open file.':
+    if str(e) == '550 Failed to open file.':
       try:
-        file_names = ftp.nlst()
+        file_names = self.ftp_session.nlst()
 
         if not os.path.exists(path):
           os.makedirs(path)
