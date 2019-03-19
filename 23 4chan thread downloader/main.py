@@ -51,17 +51,35 @@ class Downloader:
 
   def scrape_website(self):
     soup = BeautifulSoup(self.content, 'html.parser')
+    self.get_stylesheet(soup)
     self.get_body(soup)
     self.get_images(soup)
 
+  def get_stylesheet(self, soup):
+    print('Downloading stylesheet')
+    stylesheet_url = soup.find('link', {'rel': 'stylesheet'})['href']
+    response = requests.get('http:' + stylesheet_url)
+
+    if str(response.status_code) == '200':
+      print('Downloading of stylesheet has succeeded')
+
+      with open(os.path.join(self.dir, 'styles.css'), 'w') as f:
+        f.write(response.text)
+      
+      self.content = '<!DOCTYPE HTML><head><link rel="stylesheet" href="styles.css"></head>'
+    else:
+      print('Downloading of stylesheet has failed')
+      self.content = '<!DOCTYPE HTML>'
+
   def get_body(self, soup):
     thread = soup.findAll('div', {'class': 'thread'})[0]
-    self.content = '<!DOCTYPE HTML><body>{}</body>'.format(thread)
+    self.content += '<body>{}</body>'.format(thread)
 
   def get_images(self, soup):
     print('Downloading images')
     images = soup.findAll('img', href=False)
-    i = j = 0
+    i = 1
+    j = 0
 
     for img in images:
       print('Downloading image {}/{}'.format(i, len(images)))
@@ -85,7 +103,7 @@ class Downloader:
 
       i += 1
 
-    print('Downloading {}/{} images has succeeded'.format(j, len(images)))
+    print('Downloading {}/{} images have succeeded'.format(j, len(images)))
 
   def save_website(self):
     file_path = os.path.join(self.dir, self.dir + '.html')
