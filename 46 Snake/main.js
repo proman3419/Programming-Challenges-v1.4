@@ -10,23 +10,30 @@ function gameOver() {
   var tSize = 50;
   textSize(tSize);
   textAlign(CENTER, CENTER);
-  text('Game Over', boardSize[0]/2, boardSize[1]/2);
+  text('Game Over', width/2, height/2);
   tSize = 25;
   textSize(tSize);
-  text('Score ' + score, boardSize[0]/2, boardSize[1]/2 + tSize + 15);
+  text('Score ' + score, width/2, height/2 + tSize + 15);
   
   noLoop()
 }
 
-var boardSize = [401, 401];
-var _scale = 10;
-var snake = new Snake(boardSize, _scale);
-var fruit = new Fruit(boardSize, _scale);
-var score = 0;
+function initialize() {
+  _scale = 10;
+  snake = new Snake(_scale);
+  fruit = new Fruit(_scale);
+  score = 0;
+}
+
+var _scale;
+var snake;
+var fruit;
+var score;
 
 function setup() {
-  createCanvas(boardSize[0], boardSize[1]);
-  frameRate(10);
+  createCanvas(windowWidth, windowHeight);
+  initialize();
+  frameRate(15);
 }
 
 function draw() {
@@ -41,7 +48,7 @@ function draw() {
   if (snake.pos.toString() == fruit.pos.toString()) {
     snake.eat();
     score++;
-    fruit = new Fruit(boardSize, _scale);
+    fruit = new Fruit(_scale);
   }
 }
 

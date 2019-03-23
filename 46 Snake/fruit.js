@@ -1,8 +1,8 @@
-function Fruit(boundaries, scale) { 
+function Fruit(scale) { 
   this.scale = scale;
-  this.boundaries = boundaries.map(x => x - scale);
-  this.pos = [getRandomArbitrary(0, boundaries[0], scale),
-              getRandomArbitrary(0, boundaries[1], scale)];
+  this.boundaries = [width, height].map(x => x - scale);
+  this.pos = [getRandomArbitrary(0, this.boundaries[0], scale),
+              getRandomArbitrary(0, this.boundaries[1], scale)];
   
   this.show = function() {
     fill(252, 151, 42);

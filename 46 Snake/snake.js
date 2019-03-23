@@ -1,10 +1,10 @@
-function Snake(boundaries, scale) {
+function Snake(scale) {
   this.scale = scale;
-  this.boundaries = boundaries.map(x => x - this.scale);
-  this.pos = [getRandomArbitrary(0, boundaries[0], scale),
-              getRandomArbitrary(0, boundaries[1], scale)];
+  this.boundaries = [width, height].map(x => x - this.scale);
+  this.pos = [getRandomArbitrary(0, this.boundaries[0], scale),
+              getRandomArbitrary(0, this.boundaries[1], scale)];
   this.dir = [0, 0];
-  this.history = [[0, 0]];
+  this.history = [];
   
   this.update = function() {
     this.history.shift()
